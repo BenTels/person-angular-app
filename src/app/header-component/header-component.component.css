@@ -1,0 +1,29 @@
+div.filter,
+div.filter *,
+div.controls,
+div.controls * {
+    display: inline-block;
+}
+
+#filter-text {
+    margin-left: 1em;
+}
+
+div.controls {
+    margin-left: 5em;
+}
+
+div.controls a {
+    background-color: #EEEEEE;
+    color: darkorchid;
+    padding: 8px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+div.controls a:active {
+    color: red;
+    border-style: inset;
+}

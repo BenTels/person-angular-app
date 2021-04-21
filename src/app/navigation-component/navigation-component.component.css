@@ -1,0 +1,20 @@
+nav {
+    float: left;
+    max-width: 15%;
+    background-color: black;
+}
+
+nav li {
+    list-style: none;
+    margin-left: -1em;
+    margin-bottom: 0.1em;
+    padding-right: 1em;
+    margin-bottom: 0.5em;
+}
+
+nav li a {
+    font-weight: bold;
+    text-decoration: none;
+    color: ghostwhite;
+    background-color: black;
+}
