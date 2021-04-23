@@ -6,6 +6,8 @@ import { HeaderComponentComponent } from './header-component/header-component.co
 import { NavigationComponentComponent } from './navigation-component/navigation-component.component';
 import { PersonDisplayComponentComponent } from './person-display-component/person-display-component.component';
 import { IonicModule } from '@ionic/angular';
+import { StoreModule } from '@ngrx/store';
+import { personsReducer } from './person/persons-reducer'
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { IonicModule } from '@ionic/angular';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    StoreModule.forRoot({ allPersonsReducer: personsReducer }, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
