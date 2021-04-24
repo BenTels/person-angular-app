@@ -57,6 +57,11 @@ dd {
     flex-direction: column;
 }
 
+dd::after {
+    content: "\A";
+    white-space: pre;
+}
+
 .firstname {
     position: relative;
     left: 4em;
@@ -109,11 +114,11 @@ span.lastname {
     text-transform: uppercase;
 }
 
-.firstname::after,
+/* .firstname::after,
 .middlename::after,
 .email::after,
 .phone::after,
 .addressline::after {
     content: "\A";
     white-space: pre;
-}
+} */

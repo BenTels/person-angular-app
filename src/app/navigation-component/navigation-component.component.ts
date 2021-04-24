@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getPersonState, PersonState, PERSON_STATE_ERROR, PERSON_STATE_LOADED, PERSON_STATE_LOADING } from '../person/persons-reducer';
+import {  getPersonState, PersonsState, PERSON_STATE_ERROR, PERSON_STATE_LOADED, PERSON_STATE_LOADING } from '../app-state/app.reducers';
 import { Person } from '../person/person';
 import { PartialObserver, Subscription } from 'rxjs';
+import { PERSON_SELECTED } from '../app-state/app.actions';
 
 @Component({
   selector: 'app-navigation-component',
@@ -15,15 +16,16 @@ export class NavigationComponentComponent implements OnInit, OnDestroy {
   message?: string;
   subscription?: Subscription;
 
-  constructor(private store: Store<PersonState>) { }
+  constructor(private store: Store<PersonsState>) { }
 
   personClicked(personId: string) {
+    let p: Person|undefined = this.persons?.find((pp:Person) => pp.id === personId)!;
+    this.store.dispatch(PERSON_SELECTED({person: p}));
     console.log('Clicked person with id ' + personId);
   }
 
   ngOnInit(): void {
-    const obs: PartialObserver<PersonState> = this.personStateObserver;
-
+    const obs: PartialObserver<PersonsState> = this.personStateObserver;
     this.subscription = this.store.select(getPersonState).subscribe(obs);
   }
 
@@ -31,11 +33,11 @@ export class NavigationComponentComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  personStateObserver: PartialObserver<PersonState> = {
-    next: (ps: PersonState) => {
+  personStateObserver: PartialObserver<PersonsState> = {
+    next: (ps: PersonsState) => {
       if (ps) {
         if (ps.loadstate === PERSON_STATE_LOADED) {
-          this.persons = ps.data;
+          this.persons = ps.allPersons;
           this.message = undefined;
         }
         if (ps.loadstate === PERSON_STATE_ERROR) {
