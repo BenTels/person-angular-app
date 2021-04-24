@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { TEST_PERSONS } from '../TEMPORARY_TEST_PERSONS';
-import { Person } from './person';
+import { PERSON_REDUCER_TOKEN_FETCHED, PERSON_REDUCER_TOKEN_INIT } from './person-actions';
+import { PersonState } from './persons-reducer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  constructor() { }
+  constructor(private store: Store<PersonState>) { }
 
-  getPersonsList(): Observable<Person[]> {
-    return of(TEST_PERSONS);
+  getPersonsList(): void {
+    this.store.dispatch(PERSON_REDUCER_TOKEN_INIT());
+    setTimeout(
+      () => {
+        this.store.dispatch(PERSON_REDUCER_TOKEN_FETCHED({persons: TEST_PERSONS}));
+      },
+      5000
+    );
   } 
 
 }

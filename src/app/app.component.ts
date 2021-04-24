@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PERSON_REDUCER_TOKEN_FETCHED, PERSON_REDUCER_TOKEN_INIT } from './person/person-actions';
+import { PersonService } from './person/person.service';
 import { PersonState } from './person/persons-reducer';
 import { TEST_PERSONS } from './TEMPORARY_TEST_PERSONS';
 
@@ -12,13 +13,10 @@ import { TEST_PERSONS } from './TEMPORARY_TEST_PERSONS';
 export class AppComponent implements OnInit {
   title = 'person-angular-app';
   
-  constructor (private store: Store<{ps: PersonState}>) {}
+  constructor (private personService: PersonService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(PERSON_REDUCER_TOKEN_INIT());
-    setTimeout(() => { 
-      this.store.dispatch(PERSON_REDUCER_TOKEN_FETCHED({persons: TEST_PERSONS}));
-    }, 5000);
+    this.personService.getPersonsList();
   }
 
 
