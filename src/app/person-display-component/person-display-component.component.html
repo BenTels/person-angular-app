@@ -1,29 +1,25 @@
-<main>
-    <h1 class="lastname">Tels,</h1>
-    <h2 class="initials">B.</h2>
-    <h2 class="initials">Z.</h2>
-    <h4 class="pers-id">(03457)</h4>
-    <h1 class="age-class">ADULT</h1>
+<main *ngIf="person">
+    <h1 class="lastname">{{person.toLastNameAndInitials()}}</h1>
+    <h4 class="pers-id">({{person.id}})</h4>
+    <h1 class="age-class">{{person.ageclass | uppercase}}</h1>
 
     <section title="Name" class="namesection">
         <dl>
             <dt>First name(s):</dt>
             <dd>
-                <span class="firstname">Benjamin</span>
-                <span class="firstname notfirst">Extrafakename</span>
+                <span class="firstname" *ngFor="let firstname of person.firstnames">{{firstname}}</span>
             </dd>
             <dt>Middle name(s):</dt>
             <dd>
-                <span class="middlename">Ze'ev</span>
-                <span class="middlename notfirst">Extrafakename</span>
+                <span class="middlename" *ngFor="let firstname of person.middlenames">{{firstname}}</span>
             </dd>
             <dt>Last name:</dt>
             <dd>
-                <span class="lastname">Tels</span>
+                <span class="lastname">{{person.lastname}}</span>
             </dd>
             <dt>Date of birth:</dt>
             <dd>
-                <span class="dob">1978-03-12</span>
+                <span class="dob">{{person.dob}}</span>
             </dd>
         </dl>
     </section>
@@ -31,20 +27,16 @@
         <dl>
             <dt>Email address(es):</dt>
             <dd>
-                <span class="email"><ion-icon name="mail-sharp"></ion-icon> bzt@bentels.nl</span>
-                <span class="email notfirst"><ion-icon name="mail-sharp"></ion-icon> bzt@bentels.dyndns.org</span>
+                <span class="email" *ngFor="let email of person.emailaddresses"><ion-icon name="mail-sharp"></ion-icon> {{email}}</span>
             </dd>
             <dt>Phone number(s):</dt>
             <dd>
-                <span class="phone"><ion-icon name="phone-portrait-sharp"></ion-icon> +31614435308</span>
-                <span class="phone notfirst"><ion-icon name="call-sharp"></ion-icon> +31 40 252 13 94</span>
+                <span class="phone" *ngFor="let phn of person.phonenumbers"><ion-icon name="{{phn.mobile ? 'phone-portrait-sharp' : 'call-sharp'}}"></ion-icon> {{phn.number}}</span>
             </dd>
             <dt>Address:</dt>
             <dd>
-                <span class="addressline">Twickel 13</span>
-                <span class="addressline notfirst">5655 JK</span>
-                <span class="addressline notfirst">Eindhoven</span>
-                <span class="countryline notfirst">The Netherlands</span>
+                <span class="addressline" *ngFor="let aline of person.mainCorrespondenceAddress.lines">{{aline}}</span>
+                <span class="countryline">{{person.mainCorrespondenceAddress.country}}</span>
             </dd>
         </dl>
     </section>
@@ -52,13 +44,13 @@
         <dl>
             <dt>Same as correspondence address:</dt>
             <dd>
-                <ion-icon name="checkbox-sharp"></ion-icon> Yes</dd>
-            <dt>Address:</dt>
+                <span *ngIf="person.effectiveBillingAddress() === person.mainCorrespondenceAddress"><ion-icon name="checkbox-sharp"></ion-icon> Yes</span>
+                <span *ngIf="person.effectiveBillingAddress() !== person.mainCorrespondenceAddress"><ion-icon name="circle-close-sharp"></ion-icon> Yes</span>
+            </dd>
+            <dt>Billing address:</dt>
             <dd>
-                <span class="addressline">Twickel 13</span>
-                <span class="addressline notfirst">5655 JK</span>
-                <span class="addressline notfirst">Eindhoven</span>
-                <span class="countryline notfirst">The Netherlands</span>
+                <span class="b-addressline" *ngFor="let aline of person.effectiveBillingAddress().lines">{{aline}}</span>
+                <span class="b-countryline">{{person.effectiveBillingAddress().country}}</span>
             </dd>
         </dl>
     </section>

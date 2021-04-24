@@ -52,65 +52,60 @@ dt {
     float: left;
 }
 
-.firstname {
-    position: relative;
-    left: 2em;
+dd {
+    display: flex;
+    flex-direction: column;
 }
 
-.firstname.notfirst {
-    margin-left: 3em;
+.firstname {
+    position: relative;
+    left: 4em;
 }
 
 .middlename {
     position: relative;
-    left: 1em;
-}
-
-.middlename.notfirst {
-    margin-left: 4em;
+    left: 3em;
 }
 
 span.lastname {
     position: relative;
-    left: 3em;
+    left: 5.3em;
     text-decoration: underline;
     font-weight: bolder;
 }
 
 .dob {
     position: relative;
-    left: 2em;
+    left: 4.5em;
 }
 
 .email {
     position: relative;
-    left: 0em;
-}
-
-.email.notfirst {
-    margin-left: 5em;
+    left: 2em;
 }
 
 .phone {
     position: relative;
-    left: 0em;
-}
-
-.phone.notfirst {
-    margin-left: 4.6em;
+    left: 2.1em;
 }
 
 .addressline {
     position: relative;
-    left: 3.7em;
-}
-
-.addressline.notfirst {
-    margin-left: 1em;
+    left: 6em;
 }
 
 .countryline {
-    margin-left: 4.7em;
+    margin-left: 6em;
+    text-transform: uppercase;
+}
+
+.b-addressline {
+    position: relative;
+    left: 3em;
+}
+
+.b-countryline {
+    margin-left: 3em;
     text-transform: uppercase;
 }
 
