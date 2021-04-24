@@ -1,4 +1,4 @@
-import { createReducer, on, State } from "@ngrx/store";
+import { createReducer, createSelector, on, State } from "@ngrx/store";
 import { Person } from "./person";
 import { PERSON_REDUCER_TOKEN_ADDED, PERSON_REDUCER_TOKEN_FAILED, PERSON_REDUCER_TOKEN_FETCHED, PERSON_REDUCER_TOKEN_INIT, PERSON_REDUCER_TOKEN_REMOVED, PERSON_REDUCER_TOKEN_UPDATED } from "./person-actions";
 
@@ -23,3 +23,7 @@ const _actualPersonsReducer = createReducer(
 );
 
 export const personsReducer = (state: PersonState | undefined, action: any) => _actualPersonsReducer(state, action);
+
+export const getPersonState = createSelector(
+    (state: any) => state.allPersonsReducer,
+    (state: PersonState) => state );
