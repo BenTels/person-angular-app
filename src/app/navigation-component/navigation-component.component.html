@@ -1,11 +1,8 @@
 <nav>
-    <ul>
-        <li><a href="#">03457</a></li>
-        <li><a href="#">10009</a></li>
-        <li><a href="#">10012</a></li>
-        <li><a href="#">10786</a></li>
-        <li><a href="#">15889</a></li>
-        <li><a href="#">20897</a></li>
-        <li><a href="#">21344</a></li>
+    <ul *ngIf="persons">
+        <li *ngFor="let person of persons">
+            <a (click)="personClicked(person.id)" href="#">{{person.toLastNameAndInitials()}}</a>
+        </li>
     </ul>
+    <p *ngIf="message">{{message}}</p>
 </nav>

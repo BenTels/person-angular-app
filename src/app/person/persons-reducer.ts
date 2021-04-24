@@ -10,7 +10,7 @@ export interface PersonState {
     message?: string
 }
 
-export const PERSON_INITIAL_STATE: PersonState = {data: [], loadstate: ''}
+export const PERSON_INITIAL_STATE: PersonState = {data: [], loadstate: PERSON_STATE_LOADING}
 
 const _actualPersonsReducer = createReducer(
     PERSON_INITIAL_STATE,
