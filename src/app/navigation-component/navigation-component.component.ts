@@ -21,7 +21,6 @@ export class NavigationComponentComponent implements OnInit, OnDestroy {
   personClicked(personId: string) {
     let p: Person|undefined = this.persons?.find((pp:Person) => pp.id === personId)!;
     this.store.dispatch(PERSON_SELECTED({person: p}));
-    console.log('Clicked person with id ' + personId);
   }
 
   ngOnInit(): void {
