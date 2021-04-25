@@ -1,7 +1,14 @@
 <main *ngIf="person">
-    <h1 class="lastname">{{person.toLastNameAndInitials()}}</h1>
-    <h4 class="pers-id">({{person.id}})</h4>
-    <h1 class="age-class">{{person.ageclass | uppercase}}</h1>
+    <section title="header">
+        <h1 class="lastname">{{person.toLastNameAndInitials()}}</h1>
+        <h4 class="pers-id">({{person.id}})</h4>
+        <h1 class="age-class">{{person.ageclass | uppercase}}</h1>
+    </section>
+
+    <section title="control-buttons" class="buttonsection">
+        <a class="button" routerLink="/edit/{{person.id}}">Edit</a>
+        <a class="button">Delete</a>
+    </section>
 
     <section title="Name" class="namesection">
         <dl>

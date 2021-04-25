@@ -9,6 +9,8 @@ import { HeaderComponentComponent } from './header-component/header-component.co
 import { NavigationComponentComponent } from './navigation-component/navigation-component.component';
 import { PersonDisplayComponentComponent } from './person-display-component/person-display-component.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NewPersonComponent } from './new-person/new-person.component';
+import { EditPersonComponent } from './edit-person/edit-person.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     HeaderComponentComponent,
     NavigationComponentComponent,
-    PersonDisplayComponentComponent
+    PersonDisplayComponentComponent,
+    NewPersonComponent,
+    EditPersonComponent
   ],
   imports: [
     BrowserModule,

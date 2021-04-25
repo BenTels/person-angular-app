@@ -56,10 +56,6 @@ export const getPersonState = createSelector(
     (state: any) => state.rootReducer.allPersonsReducer,
     (state: AppState) =>({ allPersons: state.allPersons, loadstate: state.loadstate, message: state.message} as PersonsState));
 
-export const getSelectedPerson = createSelector(
-    (state: any) => state.rootReducer.selectedPersonReducer,
-    (state: AppState) => state.selectedPerson);
-
 export const getFilterValue = createSelector(
     (state: any) => state.rootReducer.filterReducer,
     (state: AppState) => state.filter

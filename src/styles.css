@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+.button {
+    background-color: #fafafa;
+    color: darkorchid;
+    padding: 8px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.button:active {
+    color: red;
+    border-style: inset;
+}
