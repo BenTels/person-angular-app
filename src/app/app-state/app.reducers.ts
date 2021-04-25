@@ -1,7 +1,6 @@
-import { state } from "@angular/animations";
 import { Action, combineReducers, createReducer, createSelector, on, State } from "@ngrx/store";
 import { Person } from "../person/person";
-import { PERSON_REDUCER_TOKEN_ADDED, PERSON_REDUCER_TOKEN_FAILED, PERSON_REDUCER_TOKEN_FETCHED, PERSON_REDUCER_TOKEN_INIT, PERSON_REDUCER_TOKEN_REMOVED, PERSON_REDUCER_TOKEN_UPDATED, PERSON_SELECTED, PERSON_SELECTION_CLEARED } from "./app.actions";
+import { FILTER_VALUE_CHANGED, PERSON_REDUCER_TOKEN_ADDED, PERSON_REDUCER_TOKEN_FAILED, PERSON_REDUCER_TOKEN_FETCHED, PERSON_REDUCER_TOKEN_INIT, PERSON_REDUCER_TOKEN_REMOVED, PERSON_REDUCER_TOKEN_UPDATED, PERSON_SELECTED, PERSON_SELECTION_CLEARED } from "./app.actions";
 
 export const PERSON_STATE_LOADING: string = 'loading', PERSON_STATE_LOADED: string = 'loaded', PERSON_STATE_ERROR: string = 'error';
 
@@ -9,10 +8,11 @@ export interface AppState {
     allPersons: Person[],
     selectedPerson?: Person,
     loadstate: string,
-    message?: string
+    message?: string,
+    filter?: string
 }
 
-export const INITIAL_STATE: AppState = { allPersons: [], loadstate: PERSON_STATE_LOADING }
+export const INITIAL_STATE: AppState = { allPersons: [], loadstate: PERSON_STATE_LOADING, filter: '' }
 
 const _actualPersonsReducer = createReducer(
     INITIAL_STATE,
@@ -34,9 +34,16 @@ const _actualSelectedPersonReducer = createReducer(
 
 const selectedPersonReducer = (state: AppState | undefined, action: Action) => _actualSelectedPersonReducer(state, action);
 
+const _actualFilterValueChangedReducer = createReducer(
+    INITIAL_STATE,
+    on(FILTER_VALUE_CHANGED, (state, action) => ({...state, filter: action.filter}))
+);
+const filterReducer = (state: AppState | undefined, action: Action) => _actualFilterValueChangedReducer(state, action);
+
 export const rootReducer = combineReducers({
     allPersonsReducer,
-    selectedPersonReducer
+    selectedPersonReducer,
+    filterReducer
 });
 
 export interface PersonsState {
@@ -52,3 +59,8 @@ export const getPersonState = createSelector(
 export const getSelectedPerson = createSelector(
     (state: any) => state.rootReducer.selectedPersonReducer,
     (state: AppState) => state.selectedPerson);
+
+export const getFilterValue = createSelector(
+    (state: any) => state.rootReducer.filterReducer,
+    (state: AppState) => state.filter
+);

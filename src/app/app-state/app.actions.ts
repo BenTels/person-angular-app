@@ -12,3 +12,6 @@ export const PERSON_REDUCER_TOKEN_ADDED = createAction('PERSON_ADDED', props<{ad
 // Selected person
 export const PERSON_SELECTED = createAction('[Person Display] person selected', props<{person: Person}>() );
 export const PERSON_SELECTION_CLEARED = createAction('[Person Display] selection cleared');
+
+// Query filter
+export const FILTER_VALUE_CHANGED = createAction('[Person Filter] changed', props<{filter: string}>());

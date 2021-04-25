@@ -1,6 +1,6 @@
 <header>
     <div class="filter">
-        <p>Filter: </p><input type="text" id="filter-text" /></div>
+        <p>Filter: </p><input type="text" #filter id="filter-text" (keyup)="onChange(filter.value)"/></div>
     <div class="controls">
         <a class="button" href="#">add person</a>
     </div>
