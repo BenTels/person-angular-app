@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { PartialObserver, Subscription } from 'rxjs';
-import { getSelectedPerson } from '../app-state/app.reducers';
+import { getPersonById } from '../app-state/app.reducers';
 import { Person } from '../person/person';
-import { TEST_PERSONS } from '../TEMPORARY_TEST_PERSONS';
 
 @Component({
   selector: 'app-person-display-component',
@@ -13,21 +13,32 @@ import { TEST_PERSONS } from '../TEMPORARY_TEST_PERSONS';
 export class PersonDisplayComponentComponent implements OnInit, OnDestroy {
 
   person?: Person;
-  subscription?: Subscription;
+  personSubscription?: Subscription;
+  paramSubscription?: Subscription;
 
-
-  constructor(private store: Store<Person>) { }
+  constructor(private store: Store<Person>, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const obs: PartialObserver<Person|undefined> = {
-      next: (p: Person|undefined) => this.person = p
-    };
-
-    this.store.select(getSelectedPerson).subscribe(obs);
+    this.paramSubscription = this.route.params.subscribe(
+      (par: Params) => {
+        let id = par['id'];
+        if (id) {
+          this.personSubscription?.unsubscribe();
+          this.personSubscription = this.store.select(getPersonById, {id : id}).subscribe(
+            {
+              next: (p: Person|undefined) => { 
+                console.log(p); 
+                this.person = p; 
+              }
+            });
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.paramSubscription?.unsubscribe();
+    this.personSubscription?.unsubscribe();
   }
 
 }

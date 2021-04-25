@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponentComponent } from './header-component/header-component.component';
 import { NavigationComponentComponent } from './navigation-component/navigation-component.component';
 import { PersonDisplayComponentComponent } from './person-display-component/person-display-component.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PersonDisplayComponentComponent } from './person-display-component/pers
     BrowserModule,
     IonicModule.forRoot(),
     StoreModule.forRoot({rootReducer}, {}),
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

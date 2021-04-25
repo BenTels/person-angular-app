@@ -1,7 +1,7 @@
 <nav>
     <ul *ngIf="persons">
         <li *ngFor="let person of persons">
-            <a (click)="personClicked(person.id)" href="#">{{person.toLastNameAndInitials()}}</a>
+            <a routerLink="/display/{{person.id}}">{{person.toLastNameAndInitials()}}</a>
         </li>
     </ul>
     <p *ngIf="message">{{message}}</p>

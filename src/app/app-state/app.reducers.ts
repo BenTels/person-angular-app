@@ -64,3 +64,8 @@ export const getFilterValue = createSelector(
     (state: any) => state.rootReducer.filterReducer,
     (state: AppState) => state.filter
 );
+
+export const getPersonById = createSelector(
+    (state: any) => state.rootReducer.allPersonsReducer,
+    (state: AppState, props: { id: string|null}) => state.allPersons.find((pers:Person) => pers.id === props.id)
+);

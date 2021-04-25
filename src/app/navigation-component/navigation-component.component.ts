@@ -18,11 +18,6 @@ export class NavigationComponentComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<PersonsState>) { }
 
-  personClicked(personId: string) {
-    let p: Person|undefined = this.persons?.find((pp:Person) => pp.id === personId)!;
-    this.store.dispatch(PERSON_SELECTED({person: p}));
-  }
-
   ngOnInit(): void {
     const obs: PartialObserver<PersonsState> = this.personStateObserver;
     this.subscription = this.store.select(getPersonState).subscribe(obs);
