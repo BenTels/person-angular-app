@@ -31,7 +31,7 @@ export class NavigationComponentComponent implements OnInit, OnDestroy {
     next: (ps: PersonsState) => {
       if (ps) {
         if (ps.loadstate === PERSON_STATE_LOADED) {
-          this.persons = ps.allPersons;
+          this.persons = [...ps.allPersons].sort((pl: Person, pr: Person) => pl.toLastNameAndInitials().localeCompare(pr.toLastNameAndInitials()));
           this.message = undefined;
         }
         if (ps.loadstate === PERSON_STATE_ERROR) {

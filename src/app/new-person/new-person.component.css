@@ -1,0 +1,19 @@
+main {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.buttonsection {
+    position: fixed;
+    right: 35%;
+    top: 100px;
+}
+
+dd {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    width: 228px;
+}

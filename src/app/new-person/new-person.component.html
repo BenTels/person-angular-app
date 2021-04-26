@@ -1,4 +1,52 @@
+<main>
 <section title="control-buttons" class="buttonsection">
-    <a class="button">Save</a>
+    <a class="button" (click)="newPersonSaved()">Save</a>
     <a class="button" (click)="newPersonCancelled()">Cancel</a>
 </section>
+
+<section title="Name" class="namesection">
+    <dl>
+        <dt>First name(s):</dt>
+        <dd>
+            <app-editable-list [list]="person.firstnames"></app-editable-list>
+        </dd>
+        <dt>Middle name(s):</dt>
+        <dd>
+            <app-editable-list [list]="person.middlenames"></app-editable-list>
+        </dd>
+        <dt>Last name:</dt>
+        <dd>
+            <input type="text" [(ngModel)]="person.lastname"/>
+        </dd>
+        <dt>Date of birth:</dt>
+        <dd>
+            <input type="text" [(ngModel)]="person.dob"/>
+        </dd>
+    </dl>
+</section>
+<section title="Communication" class="communication">
+    <dl>
+        <dt>Email address(es):</dt>
+        <dd>
+            <app-editable-list [list]="person.emailaddresses" [dataHTMLType]="'email'"></app-editable-list>
+        </dd>
+        <dt>Phone number(s):</dt>
+        <dd>
+            <app-editable-phonenumber-list [list]="person.phonenumbers"></app-editable-phonenumber-list>
+        </dd>
+        <dt>Address:</dt>
+        <dd>
+            <app-editable-list [list]="person.mainCorrespondenceAddress.lines"></app-editable-list>
+            <input type="text" [(ngModel)]="person.mainCorrespondenceAddress.country" placeholder="country"/>
+        </dl>
+    </section>
+    <section title="Billing address" class="billing">
+        <dl>
+            <dt>Billing address:</dt>
+            <dd>
+                <app-editable-list [list]="person.billingAddress.lines"></app-editable-list>
+                <input type="text" [(ngModel)]="person.billingAddress.country" placeholder="country"/>
+            </dd>
+        </dl>
+    </section>
+</main>

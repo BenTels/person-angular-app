@@ -3,10 +3,6 @@ main {
     max-width: 70%;
 }
 
-#filter-text {
-    margin-left: 1em;
-}
-
 .buttonsection {
     display: block;
     position: absolute;

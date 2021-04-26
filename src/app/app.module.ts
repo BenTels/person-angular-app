@@ -11,6 +11,9 @@ import { PersonDisplayComponentComponent } from './person-display-component/pers
 import { AppRoutingModule } from './app-routing.module';
 import { NewPersonComponent } from './new-person/new-person.component';
 import { EditPersonComponent } from './edit-person/edit-person.component';
+import { EditableListComponent } from './editable-list/editable-list.component';
+import { FormsModule } from '@angular/forms';
+import { EditablePhonenumberListComponent } from './editable-phonenumber-list/editable-phonenumber-list.component';
 
 
 @NgModule({
@@ -20,14 +23,17 @@ import { EditPersonComponent } from './edit-person/edit-person.component';
     NavigationComponentComponent,
     PersonDisplayComponentComponent,
     NewPersonComponent,
-    EditPersonComponent
+    EditPersonComponent,
+    EditableListComponent,
+    EditablePhonenumberListComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     StoreModule.forRoot({rootReducer}, {}),
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

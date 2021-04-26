@@ -1,0 +1,8 @@
+<div *ngFor="let elt of list; index as idx; trackBy: trackByFn">
+    <span>Mobile: </span>
+    <input type="checkbox" [(ngModel)]="elt.mobile">
+    <span>&nbsp;</span>
+    <input type="text" [(ngModel)]="elt.number">
+    <a class="button" *ngIf="idx === list.length -1 && elt.number !== ''" (click)="addElement()">+</a>
+</div>
+

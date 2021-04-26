@@ -7,7 +7,7 @@
 
     <section title="control-buttons" class="buttonsection">
         <a class="button" routerLink="/edit/{{person.id}}">Edit</a>
-        <a class="button">Delete</a>
+        <a class="button" (click)="deletePerson()">Delete</a>
     </section>
 
     <section title="Name" class="namesection">

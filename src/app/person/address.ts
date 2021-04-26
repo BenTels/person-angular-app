@@ -14,4 +14,8 @@ export class Address {
             !newLines ? this.lines : (0 < newLines.length ? newLines : undefined)
         );
     }
+
+    toEditableObject(): any {
+        return {country: this.country, lines: 0 < this.lines.length ? [...this.lines] : ['']};
+    }
 }

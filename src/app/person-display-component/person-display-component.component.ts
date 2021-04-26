@@ -1,9 +1,11 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { PartialObserver, Subscription } from 'rxjs';
 import { getPersonById } from '../app-state/app.reducers';
 import { Person } from '../person/person';
+import { PersonService } from '../person/person.service';
 
 @Component({
   selector: 'app-person-display-component',
@@ -16,7 +18,7 @@ export class PersonDisplayComponentComponent implements OnInit, OnDestroy {
   personSubscription?: Subscription;
   paramSubscription?: Subscription;
 
-  constructor(private store: Store<Person>, private route: ActivatedRoute) { }
+  constructor(private store: Store<Person>, private personService: PersonService, private route: ActivatedRoute, private loc: Location) { }
 
   ngOnInit(): void {
     this.paramSubscription = this.route.params.subscribe(
@@ -27,7 +29,6 @@ export class PersonDisplayComponentComponent implements OnInit, OnDestroy {
           this.personSubscription = this.store.select(getPersonById, {id : id}).subscribe(
             {
               next: (p: Person|undefined) => { 
-                console.log(p); 
                 this.person = p; 
               }
             });
@@ -41,4 +42,10 @@ export class PersonDisplayComponentComponent implements OnInit, OnDestroy {
     this.personSubscription?.unsubscribe();
   }
 
+  deletePerson(): void {
+    if (this.person) {
+      this.personService.deletePerson(this.person, () => { this.loc.back()});
+    }
+  }
 }
+

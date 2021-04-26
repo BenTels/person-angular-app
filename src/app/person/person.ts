@@ -42,28 +42,30 @@ export class Person {
         return new Person(id, lastname, firstnames, middlenames, dob, ageclass, emailaddresses, pns, mcr, bil);
     }
 
-    static fromEditState(
+    static fromEditState({ id, lastname, firstnames, middlenames, dob, emailaddresses, phonenumbers,
+        mainCorrespondenceAddress, billingAddress }:
+        {
             id: string,
             lastname: string,
             firstnames: string[],
             middlenames: string[],
             dob: string,
             emailaddresses: string[],
-            phonenumbers: PhoneNumber[],
-            mainCorrespondenceAddress: Address,
-            billingAddress: Address
-        ) : Person {
+            phonenumbers: [{number: string, mobile: boolean}],
+            mainCorrespondenceAddress: {country: string, lines: string[]},
+            billingAddress: {country: string, lines: string[]}
+        }) : Person {
 
-            let phnums: PhoneNumber[] = [...phonenumbers];
-            for (let i = 0; i < phnums.length; i++) {
-                if(!phnums[i].number || phnums[i].number === '') {
+            let phnums: PhoneNumber[] = [];
+            for (let i = 0; i < phonenumbers.length; i++) {
+                if(!phonenumbers[i].number || phonenumbers[i].number === '') {
                     phnums[i] = PhoneNumber.EMPTY_PHONENUMBER;
                 }
             }
             phnums = phnums.filter((phn) => phn && phn !== PhoneNumber.EMPTY_PHONENUMBER);
 
-            let mcor: Address = mainCorrespondenceAddress.copy({newLines: mainCorrespondenceAddress.lines.filter((l) => l && l !== '')});
-            let bill: Address = billingAddress.copy({newLines: billingAddress.lines.filter((l) => l && l !== '')});
+            let mcor: Address = new Address(mainCorrespondenceAddress.country, mainCorrespondenceAddress.lines);
+            let bill: Address = new Address(billingAddress.country, billingAddress.lines);
 
             return new Person(
                 id,
@@ -154,6 +156,24 @@ export class Person {
             obj.billingAddress = this.billingAddress;
         }
         return obj;
+    }
+
+    toEditableObject(): any {
+        return {
+            id: this.id,
+            lastname: this.lastname,
+            firstnames: 0 < this.firstnames.length ? [...this.firstnames]: [''],
+            middlenames: 0 < this.middlenames.length ? [...this.middlenames]: [''],
+            dob: this.dob,
+            emailaddresses: 0 < this.middlenames.length ? [...this.emailaddresses] : [''],
+            phonenumbers: 0 < this.middlenames.length ? this.phonenumbers.map((pn:PhoneNumber) => pn.toEditableObject()) : [PhoneNumber.EMPTY_PHONENUMBER.toEditableObject()],
+            mainCorrespondenceAddress: this.mainCorrespondenceAddress.toEditableObject(),
+            billingAddress: this.billingAddress.toEditableObject() 
+        };
+    }
+
+    static blankEditableObject(): any {
+        return new Person('', '').toEditableObject();
     }
 
     toLastNameAndInitials(): string {

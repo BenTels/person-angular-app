@@ -1,0 +1,4 @@
+<div *ngFor="let elt of list; index as idx; trackBy: trackByFn">
+    <input type="{{dataHTMLType}}" [(ngModel)]="list[idx]">
+    <a class="button" *ngIf="idx === list.length -1 && list[idx] !== ''" (click)="addElement()">+</a>
+</div>

@@ -23,6 +23,10 @@ export class PhoneNumber {
         return equals;
     }
 
+    toEditableObject(): any {
+        return {number: this.number, mobile: this.mobile};
+    }
+
     static fromElementMap = (phoneDataList : PhoneNumberData[]) : PhoneNumber[] => {
         let phoneNumbers : PhoneNumber[] = phoneDataList.map(({ isMobile, number }: {isMobile : boolean, number : string}) => { return new PhoneNumber(number, isMobile); });
         return (phoneNumbers.length === 0 ? [] : phoneNumbers);
