@@ -58,8 +58,10 @@ export class Person {
 
             let phnums: PhoneNumber[] = [];
             for (let i = 0; i < phonenumbers.length; i++) {
-                if(!phonenumbers[i].number || phonenumbers[i].number === '') {
-                    phnums[i] = PhoneNumber.EMPTY_PHONENUMBER;
+                if (!phonenumbers[i].number || phonenumbers[i].number === '') {
+                    phnums.push(PhoneNumber.EMPTY_PHONENUMBER);
+                } else {
+                    phnums.push(new PhoneNumber(phonenumbers[i].number, phonenumbers[i].mobile));
                 }
             }
             phnums = phnums.filter((phn) => phn && phn !== PhoneNumber.EMPTY_PHONENUMBER);
@@ -165,8 +167,8 @@ export class Person {
             firstnames: 0 < this.firstnames.length ? [...this.firstnames]: [''],
             middlenames: 0 < this.middlenames.length ? [...this.middlenames]: [''],
             dob: this.dob,
-            emailaddresses: 0 < this.middlenames.length ? [...this.emailaddresses] : [''],
-            phonenumbers: 0 < this.middlenames.length ? this.phonenumbers.map((pn:PhoneNumber) => pn.toEditableObject()) : [PhoneNumber.EMPTY_PHONENUMBER.toEditableObject()],
+            emailaddresses: 0 < this.emailaddresses.length ? [...this.emailaddresses] : [''],
+            phonenumbers: 0 < this.phonenumbers.length ? this.phonenumbers.map((pn:PhoneNumber) => pn.toEditableObject()) : [PhoneNumber.EMPTY_PHONENUMBER.toEditableObject()],
             mainCorrespondenceAddress: this.mainCorrespondenceAddress.toEditableObject(),
             billingAddress: this.billingAddress.toEditableObject() 
         };

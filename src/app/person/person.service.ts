@@ -3,7 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { PERSON_REDUCER_TOKEN_ADDED, PERSON_REDUCER_TOKEN_FETCHED, PERSON_REDUCER_TOKEN_INIT, PERSON_REDUCER_TOKEN_REMOVED } from '../app-state/app.actions';
+import { PERSON_REDUCER_TOKEN_ADDED, PERSON_REDUCER_TOKEN_FETCHED, PERSON_REDUCER_TOKEN_INIT, PERSON_REDUCER_TOKEN_REMOVED, PERSON_REDUCER_TOKEN_UPDATED } from '../app-state/app.actions';
 import { AppState, getFilterValue } from '../app-state/app.reducers';
 import { Person } from './person';
 
@@ -71,21 +71,36 @@ export class PersonService implements OnDestroy {
             console.log(resp);
           }
         }
-
       );
   }
 
-  deletePerson(person: Person, onSucces: () => void) {
-    this.http.delete(PersonService.SERVICE_URI + '/' + person.id, {observe : 'response'})
-    .subscribe(
+  updateExistingPerson(person: Person, onSuccess: (id: string) => void) {
+    this.http.put(PersonService.SERVICE_URI + '/' + person.id, 
+          person.toJSONString(),
+          { observe: 'response', headers : {'Content-Type' : 'application/json'}}
+    ).subscribe(
       (resp: HttpResponse<any>) => {
         if (resp.ok) {
-          this.store.dispatch(PERSON_REDUCER_TOKEN_REMOVED({removed: person}));
-          onSucces();
+          this.store.dispatch(PERSON_REDUCER_TOKEN_UPDATED({updated: person}));
+          onSuccess(person.id);
         } else {
           console.log(resp);
         }
       }
-    )
+    );
+  }
+
+  deletePerson(person: Person, onSucces: () => void) {
+    this.http.delete(PersonService.SERVICE_URI + '/' + person.id, { observe: 'response' })
+      .subscribe(
+        (resp: HttpResponse<any>) => {
+          if (resp.ok) {
+            this.store.dispatch(PERSON_REDUCER_TOKEN_REMOVED({ removed: person }));
+            onSucces();
+          } else {
+            console.log(resp);
+          }
+        }
+      )
   }
 }

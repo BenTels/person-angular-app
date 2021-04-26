@@ -24,7 +24,7 @@ export class NewPersonComponent implements OnInit {
   newPersonSaved(): void {
     let p: Person = Person.fromEditState(this.person);
     this.personService.saveNewPerson(p, 
-      (id?: string) => {
+      () => {
         this.resetPersonState();
         this.loc.back();
     });
