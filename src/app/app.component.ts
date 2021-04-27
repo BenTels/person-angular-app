@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonUpdateListenerService } from './person-update-listener.service';
 import { PersonService } from './person/person.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { PersonService } from './person/person.service';
 export class AppComponent implements OnInit {
   title = 'person-angular-app';
   
-  constructor (private personService: PersonService) {}
+  constructor (private personService: PersonService,private update: PersonUpdateListenerService) {}
 
   ngOnInit(): void {
     this.personService.getPersonsList();

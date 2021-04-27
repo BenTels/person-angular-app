@@ -53,6 +53,17 @@ export class PersonService implements OnDestroy {
       );
   }
 
+  getPerson(resource: string, onSuccess: (person: Person) => void) {
+    this.http.get<any>(resource, { observe: 'body', responseType: 'json' })
+      .subscribe(
+        (resp) => {
+          let pers: any = resp as unknown as any;
+          let person: Person = Person.fromObject(pers);
+          onSuccess(person);
+        }
+      );
+  }
+
   saveNewPerson(p: Person, onSuccess: (id?: string) => void) {
     this.http.post(PersonService.SERVICE_URI,
       p.toJSONString(),
@@ -62,10 +73,6 @@ export class PersonService implements OnDestroy {
       }).subscribe(
         (resp: HttpResponse<any>) => {
           if (resp.ok) {
-            let uri: string = resp.headers.get('Location')!;
-            let id = uri.substr(uri.lastIndexOf('/') + 1);
-            p = p.copy({ id: id });
-            this.store.dispatch(PERSON_REDUCER_TOKEN_ADDED({ added: p }));
             onSuccess();
           } else {
             console.log(resp);
@@ -75,13 +82,12 @@ export class PersonService implements OnDestroy {
   }
 
   updateExistingPerson(person: Person, onSuccess: (id: string) => void) {
-    this.http.put(PersonService.SERVICE_URI + '/' + person.id, 
-          person.toJSONString(),
-          { observe: 'response', headers : {'Content-Type' : 'application/json'}}
+    this.http.put(PersonService.SERVICE_URI + '/' + person.id,
+      person.toJSONString(),
+      { observe: 'response', headers: { 'Content-Type': 'application/json' } }
     ).subscribe(
       (resp: HttpResponse<any>) => {
         if (resp.ok) {
-          this.store.dispatch(PERSON_REDUCER_TOKEN_UPDATED({updated: person}));
           onSuccess(person.id);
         } else {
           console.log(resp);
@@ -95,7 +101,6 @@ export class PersonService implements OnDestroy {
       .subscribe(
         (resp: HttpResponse<any>) => {
           if (resp.ok) {
-            this.store.dispatch(PERSON_REDUCER_TOKEN_REMOVED({ removed: person }));
             onSucces();
           } else {
             console.log(resp);
